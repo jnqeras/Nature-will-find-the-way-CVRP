@@ -46,7 +46,7 @@ atd-lab.inf.puc-rio.br/index.php/en/ (this page can be fond here: ./doc/tp3.pdf)
 9. The implementation uses a representation of the graphs by nodes and demands (of each node). The edges are implicit, because the graphs are complete graphs.
 10. The heuristic K-MEANS has a temporal complexity of O(n\*K + n^3). K is calculated as the total sum of the capacities of the clients divided by the load capacity of the vehicles. If the load capacity of the vehicles is bounded -and it's reasonable to think that they are bounded for real life problems-, so K turns O(n), and the time complexity of the heuristic becomes O(n^3).
 
-###Next, a brief explanation of the heuristics and metaheuristics used on this project:
+### Next, a brief explanation of the heuristics and metaheuristics used on this project:
 
 ### Greedy Heuristic (Heurística golosa -nearest neighbor-.
 1. Begins at the depot and goes to the closest node (let's call it node *a*). Set the node *a* as "visited".
