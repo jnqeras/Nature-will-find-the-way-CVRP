@@ -1,7 +1,7 @@
 #Flag O0 en debug para poder ver todas las variables y no encontrar el error <optimized out>.
 
 CC = g++
-CFLAGS = -Wall -O3
+CFLAGS = -Wall -std=gnu++11 -O3
 CFLAGS-DEBUG = -g -Wall -O0
 SOURCES = main.h greedy.cpp savings.cpp sweep.cpp kmeans.cpp annealing.cpp main.cpp
 
