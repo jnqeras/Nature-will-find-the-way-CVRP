@@ -24,7 +24,7 @@
 2. Execute "make main".
 3. For each of the heuristics (except simulated annealing FIXME: ver si esto sigue siendo así), the following tests can be executed:
 	1. Qualitative control:
-		- In terminal, execute ./main HEURISTIC < instancias/Vrp-Set-A/A\A-nX-kY.vrp > experimentos/rutas_heuristic_nX_kY.out, replacing X, Y with N and K according to the instances that are available. Replace, "heuristic" with the name of the desired heuristic (greedy, savings, sweep, kmeans) and HEURISTIC with the corresponding number.
+		- In terminal, execute ./main HEURISTIC < instancias/Vrp-Set-A/A\\A-nX-kY.vrp > experimentos/rutas_heuristic_nX_kY.out, replacing X, Y with N and K according to the instances that are available. Replace, "heuristic" with the name of the desired heuristic (greedy, savings, sweep, kmeans) and HEURISTIC with the corresponding number.
 	2. Time according to the number of nodes and comparison against theoretical complexity.
 		- In terminal, execute ./main HEURISTIC 0 N_MÁXIMO SALTO_N > experimentos/nodos_heuristic.out, and replace HEURISTIC with the number of the heuristic to be tested, N_MÁXIMO with the maximum quantity of nodes to be evaluated, SALTO_N is the increment number of nodes from one instance to the next (i.e. if this number is 3, and one instance has n nodes, the next will have n+3 nodes). Replace "heuristic" with the name of the heuristic to be tested (greedy, savings, sweep, kmeans).
 	3. Time according to the capacity of truck load capacity, for K-Means.
@@ -46,7 +46,7 @@ atd-lab.inf.puc-rio.br/index.php/en/ (this page can be fond here: ./doc/tp3.pdf)
 9. The implementation uses a representation of the graphs by nodes and demands (of each node). The edges are implicit, because the graphs are complete graphs.
 10. The heuristic K-MEANS has a temporal complexity of O(n\*K + n^3). K is calculated as the total sum of the capacities of the clients divided by the load capacity of the vehicles. If the load capacity of the vehicles is bounded -and it's reasonable to think that they are bounded for real life problems-, so K turns O(n), and the time complexity of the heuristic becomes O(n^3).
 
-###Next, a brief explanation of the heuristics and metaheuristics used on this project:
+### Next, a brief explanation of the heuristics and metaheuristics used on this project:
 
 ### Greedy Heuristic (Heurística golosa -nearest neighbor-.
 1. Begins at the depot and goes to the closest node (let's call it node *a*). Set the node *a* as "visited".
