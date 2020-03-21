@@ -48,7 +48,7 @@ atd-lab.inf.puc-rio.br/index.php/en/ (this page can be fond here: ./doc/tp3.pdf)
 
 ### Next, a brief explanation of the heuristics and metaheuristics used on this project:
 
-### Greedy Heuristic (Heurística golosa -nearest neighbor-.
+### Greedy Heuristic (Heurística golosa -nearest neighbor-).
 1. Begins at the depot and goes to the closest node (let's call it node *a*). Set the node *a* as "visited".
 2. Choose the closest new node to *a*, let's call it node *p*. A node is new if it isn't set to visited (it has never been visited before).
 3. As long as the sum of the demand of *p* and the demand of the visited nodes isn't bigger than the load capacity of the truck, move to *p* and set it as "visited".
