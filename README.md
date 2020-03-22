@@ -1,4 +1,4 @@
-# CVRP
+# Solving a CVRP using nature's power.
 ### Description.
 This project consist of solving the CVRP problem (capacitated vehicle routing problem) using five heuristics and metaheuristics (explained below -one of them is Simulated Annealing, and it's inspired in nature-). This problem can be defined formally as: let G be a graph with V it's set of nodes and E its set of edges (G is a non directed graph). V represents the spots to be visited, 1 is the depot and from 2 to n, the clients to be visited. For each pair of nodes (i,j) there is a cost associated with that edge, this cost represents how much does it take to go from one of this nodes to the other. Each node i has a demand associated with it that represents the volume of products that it must recieve. The depot has a fleet of trucks (an unlimited ammount of trucks), every truck has the same load capacity C.
 The problem consist of finding a set of routes of minimum cost that must:
