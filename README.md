@@ -8,6 +8,7 @@ The problem consist of finding a set of routes of minimum cost that must:
 
 The cost associated with a set of routes is the sum of the costs of the routes that conform the set. The cost of a route is the sum of the costs of the edges that conform the route.
 The VRP is classified as an NP-hard problem. Hence, this project doesn't try to provide the optimal solution for each instance, but rather it tries to provide the solution with the best quality possible.
+More details (in spanish) can be found in doc/informe.pdf.
 
 
 ### Next, a brief explanation of the heuristics and metaheuristics used on this project:
@@ -21,6 +22,8 @@ The VRP is classified as an NP-hard problem. Hence, this project doesn't try to 
 6. If there are nodes that haven't been visited, a empty truck (with its full load capacity), begins from the depot and repeats the process from step 2.
 
 ### Simulated annealing.
+- This kind of metaheuristics generally simulate a behavior of nature to improve the solution (hence the title of this project).
+
 - Explanation in section 3 of Osman's paper [[1]](#1).
 
 - Osman proposes  a non-monotonous cooling function [[1]](#1).
