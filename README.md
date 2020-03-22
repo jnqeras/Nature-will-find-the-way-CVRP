@@ -1,6 +1,6 @@
 # CVRP
 ### Description.
-This project consist of solving the CVRP problem (capacitated vehicle routing problem) using five heuristics and metaheuristics (explained below). This problem can be defined formally as: let G be a graph with V it's set of nodes and E its set of edges (G is a non directed graph). V represents the spots to be visited, 1 is the depot and from 2 to n, the clients to be visited. For each pair of nodes (i,j) there is a cost associated with that edge, this cost represents how much does it take to go from one of this nodes to the other. Each node i has a demand associated with it that represents the volume of products that it must recieve. The depot has a fleet of trucks (an unlimited ammount of trucks), every truck has the same load capacity C.
+This project consist of solving the CVRP problem (capacitated vehicle routing problem) using five heuristics and metaheuristics (explained below -one of them is Simulated Annealing, and it's inspired in nature-). This problem can be defined formally as: let G be a graph with V it's set of nodes and E its set of edges (G is a non directed graph). V represents the spots to be visited, 1 is the depot and from 2 to n, the clients to be visited. For each pair of nodes (i,j) there is a cost associated with that edge, this cost represents how much does it take to go from one of this nodes to the other. Each node i has a demand associated with it that represents the volume of products that it must recieve. The depot has a fleet of trucks (an unlimited ammount of trucks), every truck has the same load capacity C.
 The problem consist of finding a set of routes of minimum cost that must:
 	-Each node (except the depot), must be visited exactly once by a truck of the fleet.
 	-Each truck begins and finishes its route on the depot.
@@ -21,7 +21,7 @@ More details (in spanish) can be found in doc/informe.pdf.
 5. If all the nodes have been visited, return to the depot.
 6. If there are nodes that haven't been visited, a empty truck (with its full load capacity), begins from the depot and repeats the process from step 2.
 
-### Simulated annealing.
+### Simulated Annealing.
 - This kind of metaheuristics generally simulate a behavior of nature to improve the solution (hence the title of this project).
 
 - Explanation in section 3 of Osman's paper [[1]](#1).
