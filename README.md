@@ -1,4 +1,58 @@
 # CVRP
+### Description.
+This project consist of solving the CVRP problem (capacitated vehicle routing problem) using five heuristics and metaheuristics (explained below). This problem can be defined formally as: let G be a graph with V it's set of nodes and E its set of edges (G is a non directed graph). V represents the spots to be visited, 1 is the depot and from 2 to n, the clients to be visited. For each pair of nodes (i,j) there is a cost associated with that edge, this cost represents how much does it take to go from one of this nodes to the other. Each node i has a demand associated with it that represents the volume of products that it must recieve. The depot has a fleet of trucks (an unlimited ammount of trucks), every truck has the same load capacity C.
+The problem consist of finding a set of routes of minimum cost that must:
+	-Each node (except the depot), must be visited exactly once by a truck of the fleet.
+	-Each truck begins and finishes its route on the depot.
+	-The sum of the demands of the clients visited by each truck can't exceed the capacity C of the truck.
+
+The cost associated with a set of routes is the sum of the costs of the routes that conform the set. The cost of a route is the sum of the costs of the edges that conform the route.
+The VRP is classified as an NP-hard problem. Hence, this project doesn't try to provide the optimal solution for each instance, but rather it tries to provide the solution with the best quality possible.
+
+
+### Next, a brief explanation of the heuristics and metaheuristics used on this project:
+
+### Greedy Heuristic (Heurística golosa -nearest neighbor-).
+1. Begins at the depot and goes to the closest node (let's call it node *a*). Set the node *a* as "visited".
+2. Choose the closest new node to *a*, let's call it node *p*. A node is new if it isn't set to visited (it has never been visited before).
+3. As long as the sum of the demand of *p* and the demand of the visited nodes isn't bigger than the load capacity of the truck, move to *p* and set it as "visited".
+4.If the capacity is exceeded, don't move to *p* and return to the depot.
+5. If all the nodes have been visited, return to the depot.
+6. If there are nodes that haven't been visited, a empty truck (with its full load capacity), begins from the depot and repeats the process from step 2.
+
+### Simulated annealing.
+- Explanation in section 3 of Osman's paper [[1]](#1).
+
+- Osman proposes  a non-monotonous cooling function [[1]](#1).
+- This paper explains simulated annealing in a broader way: [[2]](#2)
+- Cooling schedule's parameters:
+	- *Ts* = Initial temperature.
+	- *Tf* = Final temperature.
+	- *Tr* = Rule for temperature reset.
+	- *Alpha* & *Gamma* = empirical values. The paper proposes to initialize them in a specific way.
+	- *R* = Stopping criterion. The paper proposes R to be the amount of temperature resets made since the last best solution was found.
+	- *Sb* = Best solution found so far.
+	- *k* = Indicates the how many times the temperature was reduced or indicates the current iteration of the algorithm.
+	- *n* = Number of clients (nodes).
+	- *Tk* = current temperature.
+
+### Cluster first, route second (alternative solution).
+1. Cluster the nodes using K-Means (each time it returns different yet similar results because it's randomized).
+	1. Approximate K  as the total sum of demands divided by the load capacity of the truck.
+	2. Initialize K points (called "means") randomly located on the graph space. The range of the points to be clustered must be respected.
+	3. Repeat the following two steps a fixed number of iterations:
+		1. Calculate, for each node to be clustered, which is the nearest "mean". 
+		2. Update the positions of the "means" as the average of the positions of the points that where closer to them (closer to the "means").
+	4. This will generate K clusters. Each point will belong to the cluster of the "mean" that is the closest. 
+2. The demand of a cluster is the sum of the demand of its nodes. If any given cluster has more demand than the load capacity of the truck, then divide the cluster using a greedy algorithm.
+3. For each cluster, solve the problems of TSP using the nearest insertion heuristic. Now d(k,j) will be the distance between two cities k and j.
+	1. Begin with a route between two clients. Choose one client randomly and then the closest to it.
+	2. Repeat the following process as long as the route doesn't connect all the clients:
+		1. Pick a pair of clients (k,j) such as:
+			- The client k doesn't belong to the road, but j does.
+			- Minimize d(k,j) between every pair.
+		2. Find the (i,j) edge in the road such that minimizes (d(k,i) + d(k,j) - d(i,j)).
+		3. Remove (i, j) from the road. Add (k,i) y (k,j).
 
 ### Instructions.
 
@@ -45,50 +99,6 @@ atd-lab.inf.puc-rio.br/index.php/en/ (this page can be fond here: ./doc/tp3.pdf)
 8. The implementations are adaptations of the papers, they are the adaptations.
 9. The implementation uses a representation of the graphs by nodes and demands (of each node). The edges are implicit, because the graphs are complete graphs.
 10. The heuristic K-MEANS has a temporal complexity of O(n\*K + n^3). K is calculated as the total sum of the capacities of the clients divided by the load capacity of the vehicles. If the load capacity of the vehicles is bounded -and it's reasonable to think that they are bounded for real life problems-, so K turns O(n), and the time complexity of the heuristic becomes O(n^3).
-
-### Next, a brief explanation of the heuristics and metaheuristics used on this project:
-
-### Greedy Heuristic (Heurística golosa -nearest neighbor-).
-1. Begins at the depot and goes to the closest node (let's call it node *a*). Set the node *a* as "visited".
-2. Choose the closest new node to *a*, let's call it node *p*. A node is new if it isn't set to visited (it has never been visited before).
-3. As long as the sum of the demand of *p* and the demand of the visited nodes isn't bigger than the load capacity of the truck, move to *p* and set it as "visited".
-4.If the capacity is exceeded, don't move to *p* and return to the depot.
-5. If all the nodes have been visited, return to the depot.
-6. If there are nodes that haven't been visited, a empty truck (with its full load capacity), begins from the depot and repeats the process from step 2.
-
-### Simulated annealing.
-- Explanation in section 3 of Osman's paper [[1]](#1).
-
-- Osman proposes  a non-monotonous cooling function [[1]](#1).
-- This paper explains simulated annealing in a broader way: [[2]](#2)
-- Cooling schedule's parameters:
-	- *Ts* = Initial temperature.
-	- *Tf* = Final temperature.
-	- *Tr* = Rule for temperature reset.
-	- *Alpha* & *Gamma* = empirical values. The paper proposes to initialize them in a specific way.
-	- *R* = Stopping criterion. The paper proposes R to be the amount of temperature resets made since the last best solution was found.
-	- *Sb* = Best solution found so far.
-	- *k* = Indicates the how many times the temperature was reduced or indicates the current iteration of the algorithm.
-	- *n* = Number of clients (nodes).
-	- *Tk* = current temperature.
-
-### Cluster first, route second (alternative solution).
-1. Cluster the nodes using K-Means (each time it returns different yet similar results because it's randomized).
-	1. Approximate K  as the total sum of demands divided by the load capacity of the truck.
-	2. Initialize K points (called "means") randomly located on the graph space. The range of the points to be clustered must be respected.
-	3. Repeat the following two steps a fixed number of iterations:
-		1. Calculate, for each node to be clustered, which is the nearest "mean". 
-		2. Update the positions of the "means" as the average of the positions of the points that where closer to them (closer to the "means").
-	4. This will generate K clusters. Each point will belong to the cluster of the "mean" that is the closest. 
-2. The demand of a cluster is the sum of the demand of its nodes. If any given cluster has more demand than the load capacity of the truck, then divide the cluster using a greedy algorithm.
-3. For each cluster, solve the problems of TSP using the nearest insertion heuristic. Now d(k,j) will be the distance between two cities k and j.
-	1. Begin with a route between two clients. Choose one client randomly and then the closest to it.
-	2. Repeat the following process as long as the route doesn't connect all the clients:
-		1. Pick a pair of clients (k,j) such as:
-			- The client k doesn't belong to the road, but j does.
-			- Minimize d(k,j) between every pair.
-		2. Find the (i,j) edge in the road such that minimizes (d(k,i) + d(k,j) - d(i,j)).
-		3. Remove (i, j) from the road. Add (k,i) y (k,j).
 
 ### Experimentation ideas.
 1. Make a Qualitative control, depicting the generated roads for multiple instances in easy to visualize plots. Use this test to evaluate the feasibility of the generated solutions. Implemented on the Jupyter Notebook.
